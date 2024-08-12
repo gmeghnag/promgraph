@@ -24,8 +24,7 @@ jobs:
           BINARY_NAME=$( echo ${GITHUB_REPOSITORY} | egrep -io "[^/]+$")
           echo "BINARY_NAME=$BINARY_NAME" >> $GITHUB_ENV
           HASH=$(git log -n1 --pretty=format:%h)
-          echo ${TAG} ${HASH} \
-          && env GOOS=linux CGO_ENABLED=0 GOARCH=amd64 go build -o ${BINARY_NAME} \
+          env GOOS=linux CGO_ENABLED=0 GOARCH=amd64 go build -o ${BINARY_NAME} \
           && cp ${BINARY_NAME} ${BINARY_NAME}_Linux_x86_64 && tar -cvzf ${BINARY_NAME}_Linux_x86_64.tar.gz ${BINARY_NAME} && rm -rf ${BINARY_NAME} \
           && env GOOS=linux CGO_ENABLED=0 GOARCH=arm64 go build -o ${BINARY_NAME} \
           && tar -cvzf ${BINARY_NAME}_Linux_arm64.tar.gz ${BINARY_NAME} && cp ${BINARY_NAME}_Linux_arm64.tar.gz ${BINARY_NAME}_Linux_aarch64.tar.gz && rm -rf ${BINARY_NAME} \
